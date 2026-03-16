@@ -18,7 +18,6 @@ This is my personal portfolio website where I showcase my frontend projects, ski
 - 🎨 Clean, modern UI built with Tailwind CSS utility classes
 - 🔒 Type-safe codebase using TypeScript throughout
 - 🧩 Reusable, component-based architecture with React
-- 🌙 (Optional) Dark mode support
 - 📬 Contact form / links to reach out directly
 
 ---
