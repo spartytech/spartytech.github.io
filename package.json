@@ -1,5 +1,5 @@
 {
-  "homepage": "https://spartytech.github.io/my-portfolio",
+  "homepage": "https://spartytech.github.io/",
   "name": "my-portfolio",
   "private": true,
   "version": "0.0.0",
@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
