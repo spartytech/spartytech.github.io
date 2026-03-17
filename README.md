@@ -77,7 +77,7 @@ export default defineConfig([
 
 > A modern, responsive personal portfolio built with React, TypeScript, and Tailwind CSS.
 
-🔗 **[Live Demo](#)**
+🔗 **[Live Demo](https://spartytech.github.io/)**
 
 ---
 
@@ -144,7 +144,7 @@ npm run build
 
 Feel free to reach out or connect with me:
 
-- 🌐 Portfolio: [your-portfolio-url.com](#)
+- 🌐 Portfolio: [https://spartytech.github.io/](https://spartytech.github.io/)
 - 💼 LinkedIn: [linkedin.com/in/your-profile](#)
 - 🐙 GitHub: [github.com/your-username](#)
 - 📧 Email: your@email.com
