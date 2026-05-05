@@ -106,28 +106,49 @@ const translations = {
 
 export default function Portfolio() {
   const [lang, setLang] = useState<'cs' | 'en'>('cs');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
+
   const t = translations[lang];
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-        <ul className="flex gap-8 text-sm font-medium text-gray-600">
+        <ul className="hidden md:flex gap-8 text-sm font-medium text-gray-600">
           <li>
-            <a href="#home" className="hover:text-black transition-colors">
+            <a href="#home" className="hover:text-black transition-colors" onClick={closeMenu}>
               {t.nav.home}
             </a>
           </li>
           <li>
-            <a href="#contact" className="hover:text-black transition-colors">
+            <a href="#contact" className="hover:text-black transition-colors" onClick={closeMenu}>
               {t.nav.contact}
             </a>
           </li>
           <li>
-            <a href="#about" className="hover:text-black transition-colors">
+            <a href="#about" className="hover:text-black transition-colors" onClick={closeMenu}>
               {t.nav.about}
             </a>
           </li>
         </ul>
+
+        {/* Burger Menu Button */}
+        <button
+          onClick={toggleMenu}
+          className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {isMenuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+
         <div className="flex items-center gap-3">
           <button
             onClick={() => setLang(prev => (prev === 'cs' ? 'en' : 'cs'))}
@@ -137,42 +158,81 @@ export default function Portfolio() {
           </button>
           <a
             href="#projects"
-            className="px-5 py-2 rounded-full border border-sky-400 text-sky-500 text-sm font-medium hover:bg-sky-50 transition-colors"
+            className="hidden md:inline-block px-5 py-2 rounded-full border border-sky-400 text-sky-500 text-sm font-medium hover:bg-sky-50 transition-colors"
+            onClick={closeMenu}
           >
             {t.nav.work}
           </a>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-100 md:hidden">
+            <div className="px-8 py-4 space-y-4">
+              <a
+                href="#home"
+                className="block py-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
+                onClick={closeMenu}
+              >
+                {t.nav.home}
+              </a>
+              <a
+                href="#contact"
+                className="block py-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
+                onClick={closeMenu}
+              >
+                {t.nav.contact}
+              </a>
+              <a
+                href="#about"
+                className="block py-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
+                onClick={closeMenu}
+              >
+                {t.nav.about}
+              </a>
+              <a
+                href="#projects"
+                className="block py-2 text-sm font-medium text-sky-500 hover:text-sky-600 transition-colors"
+                onClick={closeMenu}
+              >
+                {t.nav.work}
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       <section
         id="home"
         className="relative min-h-screen flex items-center justify-center px-8 md:px-20 pt-24"
       >
-        <div className="w-full flex items-center justify-center lg:justify-between max-w-6xl ml-24">
-          <div className="max-w-xl text-center md:text-left">
-            <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-5 leading-tight">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center lg:justify-between max-w-6xl">
+          <div className="max-w-xl text-center lg:text-left mb-8 lg:mb-0">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-5 leading-tight">
               {t.hero.title}
             </h1>
-            <p className="text-gray-500 text-lg leading-relaxed mb-8">
+            <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-8">
               {t.hero.description}
             </p>
-            <div className="flex gap-4 flex-wrap justify-center md:justify-start">
+            <div className="flex gap-4 flex-wrap justify-center lg:justify-start">
               <a
                 href="#about"
                 className="px-6 py-3 rounded-full border border-gray-300 text-sm font-medium hover:border-gray-500 transition-colors"
+                onClick={closeMenu}
               >
                 {t.hero.aboutButton}
               </a>
               <a
                 href="#projects"
                 className="px-6 py-3 rounded-full bg-sky-100 text-sky-600 text-sm font-medium hover:bg-sky-200 transition-colors"
+                onClick={closeMenu}
               >
                 {t.hero.projectsButton}
               </a>
             </div>
           </div>
 
-          <div className="hidden lg:block shrink-0 w-96 h-96 opacity-90 select-none pointer-events-none">
+          <div className="hidden lg:block shrink-0 w-80 lg:w-96 h-80 lg:h-96 opacity-90 select-none pointer-events-none">
             <img
               src={gojoHero}
               alt="hero illustration"
@@ -237,17 +297,17 @@ export default function Portfolio() {
 
       <section id="contact" className="bg-sky-50 py-24 px-8 md:px-20 flex justify-center">
         <div className="max-w-3xl w-full">
-          <h2 className="text-4xl font-black mb-10 tracking-tight text-center md:text-left">
+          <h2 className="text-3xl md:text-4xl font-black mb-10 tracking-tight text-center lg:text-left">
             {t.contact.title}
           </h2>
-          <div className="w-full flex flex-col md:flex-row gap-16 items-center md:items-start justify-center">
+          <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-start justify-center">
             <img
               src={gojoContact}
               alt="Contact Illustration"
-              className="w-80 h-90 rounded-2xl hidden md:block"
+              className="w-64 md:w-80 h-64 md:h-80 rounded-2xl hidden md:block"
             />
-            <div className="flex flex-col gap-5 w-full md:flex-1">
-              <div>
+            <div className="flex flex-col gap-5 w-full lg:flex-1 items-center lg:items-start">
+              <div className="text-center lg:text-left">
                 <p className="text-xs uppercase tracking-widest text-gray-400 mb-2">
                   {t.projects.title}
                 </p>
@@ -263,7 +323,7 @@ export default function Portfolio() {
                   {t.contact.github}
                 </a>
               </div>
-              <div>
+              <div className="text-center lg:text-left">
                 <p className="text-xs uppercase tracking-widest text-gray-400 mb-2">
                   {lang === 'cs' ? 'Napiš mi' : "Don't hesitate to say hi."}
                 </p>
@@ -278,7 +338,7 @@ export default function Portfolio() {
                   {t.contact.email}
                 </a>
               </div>
-              <div>
+              <div className="text-center lg:text-left">
                 <p className="text-xs uppercase tracking-widest text-gray-400 mb-2">
                   {lang === 'cs' ? 'Najdete mě na X' : 'Find me on X'}
                 </p>
@@ -294,7 +354,7 @@ export default function Portfolio() {
                   {t.contact.x}
                 </a>
               </div>
-              <p className="mt-12 text-3xl font-black italic text-gray-800 text-center md:text-left">
+              <p className="mt-12 text-2xl md:text-3xl font-black italic text-gray-800 text-center lg:text-left">
                 {t.contact.work}
               </p>
             </div>
@@ -302,7 +362,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <footer className="py-6 px-8 md:px-20 flex items-center justify-center md:justify-between text-xs text-gray-400 border-t border-gray-100">
+      <footer className="py-6 px-8 md:px-20 flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 text-xs text-gray-400 border-t border-gray-100">
         <span>{t.footer.built}</span>
         <span>{t.footer.copyright}</span>
         <div className="flex gap-4">
